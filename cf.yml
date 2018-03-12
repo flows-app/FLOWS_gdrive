@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "meshify gdrive"
+Resources:
+  MESHIFYgdrivenewfileFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code: MESHIFY_gdrive_newfile
+      Handler: main.handler
+      Role:
+        Fn::GetAtt: [ LambdaRole , Arn ]
+      Runtime: python3.6
+      Timeout: 300
+  MESHIFYgdrivenewfileConfig:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: "/MESHIFY/MESHIFY/gdrive/newfile/lambda"
+      Description: meshify gdrive task arn
+      Type: String
+      Value:
+        Fn::GetAtt: [ MESHIFYgdrivenewfileFunction , Arn ]
+  MESHIFYgdrivefetchfileFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code: MESHIFY_gdrive_fetchfile
+      Handler: main.handler
+      Role:
+        Fn::GetAtt: [ LambdaRole , Arn ]
+      Runtime: python3.6
+      Timeout: 300
+  MESHIFYgdrivefetchfileConfig:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: "/MESHIFY/MESHIFY/gdrive/fetchfile/lambda"
+      Description: meshify gdrive task arn
+      Type: String
+      Value:
+        Fn::GetAtt: [ MESHIFYgdrivefetchfileFunction , Arn ]
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: LambdaRolePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              Resource: arn:aws:logs:*:*:*
