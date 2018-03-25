@@ -10,14 +10,6 @@ Resources:
         Fn::GetAtt: [ LambdaRole , Arn ]
       Runtime: python3.6
       Timeout: 300
-  MESHIFYgdrivenewfileConfig:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: "/MESHIFY/MESHIFY/gdrive/newfile/lambda"
-      Description: meshify gdrive task arn
-      Type: String
-      Value:
-        Fn::GetAtt: [ MESHIFYgdrivenewfileFunction , Arn ]
   MESHIFYgdrivefetchfileFunction:
     Type: AWS::Lambda::Function
     Properties:
@@ -27,14 +19,6 @@ Resources:
         Fn::GetAtt: [ LambdaRole , Arn ]
       Runtime: python3.6
       Timeout: 300
-  MESHIFYgdrivefetchfileConfig:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: "/MESHIFY/MESHIFY/gdrive/fetchfile/lambda"
-      Description: meshify gdrive task arn
-      Type: String
-      Value:
-        Fn::GetAtt: [ MESHIFYgdrivefetchfileFunction , Arn ]
   LambdaRole:
     Type: AWS::IAM::Role
     Properties:
