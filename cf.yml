@@ -59,3 +59,44 @@ Resources:
               - logs:CreateLogStream
               - logs:PutLogEvents
               Resource: arn:aws:logs:*:*:*
+  InvokeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            AWS:
+            - 321232316075
+          Action:
+          - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: LambdaRolePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+              - lambda:InvokeFunction
+              Resource:
+              - Fn::GetAtt: [ MESHIFYgdrivenewfileFunction , Arn ]
+              - Fn::GetAtt: [ MESHIFYgdrivefetchfileFunction , Arn ]
+Outputs:
+  MESHIFYgdrivenewfileFunction:
+    Description: '/MESHIFY/MESHIFY/gdrive/newfile/lambda'
+    Value:
+      Fn::GetAtt: [ MESHIFYgdrivenewfileFunction , Arn ]
+  MESHIFYgdrivenewfileRole:
+    Description: '/MESHIFY/MESHIFY/gdrive/newfile/role'
+    Value:
+      Fn::GetAtt: [ InvokeRole , Arn ]
+  MESHIFYgdrivefetchfileFunction:
+    Description: '/MESHIFY/MESHIFY/gdrive/fetchfile/lambda'
+    Value:
+      Fn::GetAtt: [ MESHIFYgdrivefetchfileFunction , Arn ]
+  MESHIFYgdrivefetchfileRole:
+    Description: '/MESHIFY/MESHIFY/gdrive/fetchfile/role'
+    Value:
+      Fn::GetAtt: [ InvokeRole , Arn ]
