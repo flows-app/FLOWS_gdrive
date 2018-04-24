@@ -19,6 +19,42 @@ Resources:
         Fn::GetAtt: [ LambdaRole , Arn ]
       Runtime: python3.6
       Timeout: 300
+  MESHIFYgdrivefetchfilemetadataFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code: MESHIFY_gdrive_fetchfilemetadata
+      Handler: main.handler
+      Role:
+        Fn::GetAtt: [ LambdaRole , Arn ]
+      Runtime: python3.6
+      Timeout: 300
+  MESHIFYgdrivenewfileLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName:
+        Fn::Join:
+          - ""
+          - - "/aws/lambda/"
+            - Ref: MESHIFYgdrivenewfileFunction
+      RetentionInDays: 7
+  MESHIFYgdrivefetchfileLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName:
+        Fn::Join:
+          - ""
+          - - "/aws/lambda/"
+            - Ref: MESHIFYgdrivefetchfileFunction
+      RetentionInDays: 7
+  MESHIFYgdrivefetchfilemetadataLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName:
+        Fn::Join:
+          - ""
+          - - "/aws/lambda/"
+            - Ref: MESHIFYgdrivefetchfilemetadataFunction
+      RetentionInDays: 7
   LambdaRole:
     Type: AWS::IAM::Role
     Properties:
