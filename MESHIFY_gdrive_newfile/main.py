@@ -31,14 +31,8 @@ def handler(event, context):
     #     }
     filelist = json.loads(content)
     for fileentry in filelist['files']:
-      id = fileentry['id']
-      request2 = urllib.request.Request(gdrive_url+'/'+id+'?fields=modifiedTime,kind,id,name,mimeType')
-      request2.add_header('Authorization','Bearer '+event['accesstoken'])
-      response2 = urllib.request.urlopen(request2)
-      content2 = response2.read()
-      fileitem = json.loads(content2)
-      fileitem['dedupid']=fileitem['id']+fileitem['modifiedTime']
-      result.append(fileitem)
-      print(content2)
+        fileentry['dedupid']=fileentry['id']
+        result.append(fileentry)
+
   print(result)
   return result
