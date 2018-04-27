@@ -6,6 +6,10 @@ import urllib.request
 gdrive_url = "https://www.googleapis.com/drive/v3/files"
 
 def handler(event, context):
+  #remove credentials from event
+  accesstoken = event['accesstoken']
+  event['accesstoken'] = '***'
+
   print("event")
   print(event)
 
@@ -13,7 +17,7 @@ def handler(event, context):
   params = urllib.parse.urlencode({'q': 'parents in \''+directory+'\''})
   print(params)
   request = urllib.request.Request(gdrive_url+'?'+params)
-  request.add_header('Authorization','Bearer '+event['accesstoken'])
+  request.add_header('Authorization','Bearer '+accesstoken)
   result = []
   with urllib.request.urlopen(request) as response:
     content = response.read()
