@@ -23,6 +23,7 @@ def handler(event, context):
     data = response.read()
     #put file to s3
     request2 = urllib.request.Request(targeturl,data=data,method='PUT')
+    request2.add_header('Content-Type','application/octet-stream')
     with urllib.request.urlopen(request2) as response2:
       data2 = response2.read()
       print(data2)
