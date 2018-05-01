@@ -35,7 +35,7 @@ def handler(event, context):
     #     }
     filelist = json.loads(content)
     for fileentry in filelist['files']:
-        fileentry['dedupid']=fileentry['id']
+        #fileentry['dedupid']=fileentry['id']
         result.append(fileentry)
 
   print(result)
