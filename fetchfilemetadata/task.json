@@ -1,0 +1,9 @@
+{
+    "id": "FLOWS/gdrive/fetchfilemetadata",
+    "lambda": "lambda-arn",
+    "role": "iam-arn",
+    "type": "task",
+    "description": "fetches only the file metadata from googe drive",
+    "icon": "https://flows.app/favicon.png",
+    "billing": "standard"
+}

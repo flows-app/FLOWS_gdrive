@@ -1,0 +1,9 @@
+{
+    "id": "FLOWS/gdrive/newfile",
+    "lambda": "lambda-arn",
+    "role": "iam-arn",
+    "type": "poller",
+    "description": "triggers when a new file arrives in a specific google drive folder",
+    "icon": "https://flows.app/favicon.png",
+    "billing": "standard"
+}

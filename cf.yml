@@ -1,59 +1,59 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: "meshify gdrive"
+Description: "flows gdrive"
 Resources:
-  MESHIFYgdrivenewfileFunction:
+  newfileFunction:
     Type: AWS::Lambda::Function
     Properties:
-      Code: MESHIFY_gdrive_newfile
+      Code: newfile
       Handler: main.handler
       Role:
         Fn::GetAtt: [ LambdaRole , Arn ]
       Runtime: python3.6
       Timeout: 300
-  MESHIFYgdrivefetchfileFunction:
+  fetchfileFunction:
     Type: AWS::Lambda::Function
     Properties:
-      Code: MESHIFY_gdrive_fetchfile
+      Code: fetchfile
       Handler: main.handler
       Role:
         Fn::GetAtt: [ LambdaRole , Arn ]
       Runtime: python3.6
       Timeout: 300
-  MESHIFYgdrivefetchfilemetadataFunction:
+  fetchfilemetadataFunction:
     Type: AWS::Lambda::Function
     Properties:
-      Code: MESHIFY_gdrive_fetchfilemetadata
+      Code: fetchfilemetadata
       Handler: main.handler
       Role:
         Fn::GetAtt: [ LambdaRole , Arn ]
       Runtime: python3.6
       Timeout: 300
-  MESHIFYgdrivenewfileLogGroup:
+  newfileLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName:
         Fn::Join:
           - ""
           - - "/aws/lambda/"
-            - Ref: MESHIFYgdrivenewfileFunction
+            - Ref: newfileFunction
       RetentionInDays: 7
-  MESHIFYgdrivefetchfileLogGroup:
+  fetchfileLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName:
         Fn::Join:
           - ""
           - - "/aws/lambda/"
-            - Ref: MESHIFYgdrivefetchfileFunction
+            - Ref: fetchfileFunction
       RetentionInDays: 7
-  MESHIFYgdrivefetchfilemetadataLogGroup:
+  fetchfilemetadataLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName:
         Fn::Join:
           - ""
           - - "/aws/lambda/"
-            - Ref: MESHIFYgdrivefetchfilemetadataFunction
+            - Ref: fetchfilemetadataFunction
       RetentionInDays: 7
   LambdaRole:
     Type: AWS::IAM::Role
@@ -101,22 +101,22 @@ Resources:
               Action:
               - lambda:InvokeFunction
               Resource:
-              - Fn::GetAtt: [ MESHIFYgdrivenewfileFunction , Arn ]
-              - Fn::GetAtt: [ MESHIFYgdrivefetchfileFunction , Arn ]
+              - Fn::GetAtt: [ newfileFunction , Arn ]
+              - Fn::GetAtt: [ fetchfileFunction , Arn ]
 Outputs:
-  MESHIFYgdrivenewfileFunction:
-    Description: '/MESHIFY/MESHIFY/gdrive/newfile/lambda'
+  newfileFunction:
+    Description: 'newfile'
     Value:
-      Fn::GetAtt: [ MESHIFYgdrivenewfileFunction , Arn ]
-  MESHIFYgdrivenewfileRole:
-    Description: '/MESHIFY/MESHIFY/gdrive/newfile/role'
+      Fn::GetAtt: [ newfileFunction , Arn ]
+  newfileRole:
+    Description: 'newfile'
     Value:
       Fn::GetAtt: [ InvokeRole , Arn ]
-  MESHIFYgdrivefetchfileFunction:
-    Description: '/MESHIFY/MESHIFY/gdrive/fetchfile/lambda'
+  fetchfileFunction:
+    Description: 'fetchfile'
     Value:
-      Fn::GetAtt: [ MESHIFYgdrivefetchfileFunction , Arn ]
-  MESHIFYgdrivefetchfileRole:
-    Description: '/MESHIFY/MESHIFY/gdrive/fetchfile/role'
+      Fn::GetAtt: [ fetchfileFunction , Arn ]
+  fetchfileRole:
+    Description: 'fetchfile'
     Value:
       Fn::GetAtt: [ InvokeRole , Arn ]

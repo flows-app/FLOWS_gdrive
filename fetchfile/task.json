@@ -1,0 +1,9 @@
+{
+    "id": "FLOWS/gdrive/fetchfile",
+    "lambda": "lambda-arn",
+    "role": "iam-arn",
+    "type": "task",
+    "description": "fetches a file from googe drive",
+    "icon": "https://flows.app/favicon.png",
+    "billing": "standard"
+}
